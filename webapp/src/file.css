@@ -1,0 +1,14 @@
+.page {
+    word-wrap: break-word;
+}
+
+.columnLeft {
+    float: left;
+    width: 40%;
+}
+
+.columnRight {
+    float: right;
+    width: 40%;
+}
+
