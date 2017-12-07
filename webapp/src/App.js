@@ -4,13 +4,13 @@ import AppBar from 'material-ui/AppBar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 // import the view and the viewModel
-import {TodoView} from './TodoView'
-import {TodoViewModel} from './TodoViewModel'
+import {BookView} from './BookView'
+import {BookViewModel} from './BookViewModel'
 
 import './App.css';
 
 // create a viewModel singleton
-const model = new TodoViewModel()
+const model = new BookViewModel()
 
 
 class App extends Component {
@@ -22,12 +22,11 @@ class App extends Component {
         <AppBar
               title="Lord Jim"
               iconClassNameRight="muidocs-icon-navigation-expand-more"
-            />   
-          <h1 className="App-title">Multi language Books</h1>
+            />  
         </header>
-        <p className="App-intro">
-          <TodoView model={model} />
-        </p>
+     
+          <BookView model={model} />
+       
       </div>
       </MuiThemeProvider>
     );

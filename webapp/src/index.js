@@ -2,6 +2,7 @@
 // import needed libraries
 import React from 'react'
 import App from './App'
+import "typeface-roboto";
 import {render} from 'react-dom'
 
 
