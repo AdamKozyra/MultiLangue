@@ -1,16 +1,25 @@
 import {Page} from './Page'
+import {Book} from './Models/Book'
 import {Chapter} from './Models/Chapter'
 export class BookService{
 
+    getBook(id)
+    {
+        var book = new Book(id);
+        book.name = "Lord Jim";
+        book.chapters = [new Chapter(1,"Gdzie Lord G poznaje"), new Chapter(2,"Rzodział 2"), new Chapter(3,"Rzodział 3"),new Chapter(4,"Rzodział 4"), new Chapter(5,"Rzodział 2")];
+        book.chapters[0].pages = [new Page(1), new Page(2), new Page(3)]
+        book.chapters[1].pages = [new Page(1), new Page(2)]
+        book.chapters[2].pages = [new Page(1), new Page(2), new Page(3), new Page(3)]
+        
+        return book;
+    }
     getChapter(number)
     {
-        if(number === 1)
-        {
-        }
-        else
-        {
-            return new Chapter();
-        }
+            var c = new Chapter(number, "Rozdział " + number);
+            /*int*/
+            c.pages = [new Page(1), new Page(2), new Page(3), new Page(4), new Page(5), new Page(6), new Page(7)];
+        
     }
     getPageByNumber(number)
     {        

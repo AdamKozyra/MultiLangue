@@ -12,9 +12,6 @@ import Slider from 'material-ui/Slider';
 
 import styles from './file.css';
 
-const buttonStyle = {
-  margin: 12,
-};
 const styleRight = {  
         float: 'left',
         width: '50%',
@@ -35,14 +32,14 @@ const styleRow =
     content: "",
     display: 'table',
     clear: 'both',
-    textalign: "center"
+    textalign: "center",
+    "overflow-y": "scroll"
 };
-// This is a React component.
-// The property "model" of the passed props object is an instance of our TodoViewModel class.
-// do you remember all those @observable and @computed?
-// In order to let your React component automatically update whenever any of
-// those observable property of an object in the component props update,
-// you should pass your component to the "observer" function/decorator
+const bottomPanel =
+{
+ "text-align" : "right"
+}
+
 @observer
 export class BookView extends React.Component{
     handleSecondSlider = (event, value) => {
@@ -66,20 +63,19 @@ export class BookView extends React.Component{
                     </Paper>
                
               </div>
-              </div>     
-              <Subheader>{model.pageNumber}</Subheader>         
-              
-              <FlatButton label="Rozdziały" onClick={ () => model.openChapters() }/>
-              <FlatButton label="Poprzednia" icon={<FontIcon className="muidocs-icon-custom-github" />}  onClick={ () => model.previousPage()}/>           
-              <FlatButton label="Nastepna"   onClick={ () =>model.nextPage()}/>
-              
-              <Slider min={0} max={4} step={1}  onChange={this.handleSecondSlider}/>
-              
-              <Drawer open={model.isChaptersOpened}>
-              {model.chapters.map((chapter, i) => <MenuItem key={chapter.number}   >{chapter.name} </MenuItem>)}
-               
-             </Drawer>
-        
+              </div>
+              <div style={bottomPanel}>     
+                <Subheader>{model.pageNumber}</Subheader>         
+                
+                <FlatButton label="Rozdziały" onClick={ () => model.openChapters() }/>
+                <FlatButton label="Poprzednia" icon={<FontIcon className="muidocs-icon-custom-github" />}  onClick={ () => model.previousPage()}/>           
+                <FlatButton label="Nastepna"   onClick={ () =>model.nextPage()}/>                
+                <Slider min={0} max={4} step={1}  onChange={this.handleSecondSlider}/>
+            </div>
+            <Drawer open={model.isChaptersOpened}>
+                     {model.chapters.map((chapter, i) => <MenuItem key={chapter.number}   >{chapter.name} </MenuItem>)}                
+            </Drawer>
+
               {/* <div onClick={alert('Pop')}>
              
               </div>

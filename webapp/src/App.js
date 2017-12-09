@@ -20,7 +20,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">     
         <AppBar
-              title="Lord Jim"
+              title={model.book.name}
               iconClassNameRight="muidocs-icon-navigation-expand-more"
             />  
         </header>

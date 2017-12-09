@@ -10,7 +10,7 @@ export class Chapter{
     pages = [];
     service;
 
-    constructor(num, name){
+    constructor(/*int*/num, /*string*/name){
         this.number = num;
         this.name = name;
         this.load();
@@ -19,14 +19,10 @@ export class Chapter{
     @action
     load(){
     this.service = new BookService();
-        this.pages = [];
-        this.name = "Rozdział 1";
-        this.pages.push(this.service.getPageByNumber(1));
-        this.pages.push(this.service.getPageByNumber(2));
-        this.pages.push(this.service.getPageByNumber(3));
+        this.pages = [];      
 }
         getPageByNumber(number)
         {
-            return this.pages[number];
+            return this.service.getPageByNumber(number);
         }
 }
