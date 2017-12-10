@@ -1,6 +1,7 @@
-import {Page} from './Page'
+import {Page} from './Models/Page'
 import {Book} from './Models/Book'
 import {Chapter} from './Models/Chapter'
+import {HardWord} from './Models/HardWord'
 export class BookService{
 
     getBook(id)
@@ -69,7 +70,10 @@ export class BookService{
             nie miał w sobie nic przykrego. Był niepokalanie czysty, biało ubrany od trzewików do kapelusza i w rozmaitych wschodnich portach, \
             gdzie zarabiał na życie w charakterze agenta okrętowego, ciszył się wielką popularnością.\
             Agent okrętowy nie potrzebuje zdawać żadnych egzaminów, ale musi posiadać zdolność abstrakcyjnego myślenia i umieć wykazać je w praktyce. Jego praca polega na tym, by przy pomocy pary, żagli lub wioseł ścigać się z innymi agentami na widok zarzucającego kotwicę okrętu, serdecznie powitać kapitana i wsunąć mu swą kartę — kartę agenta okrętowego — a przy pierwszej jego wizycie na wybrzeżu stanowczo, lecz bez ostentacji skierować go do obszernego, podobnego do winiarni magazynu, gdzie jest wszystko, co się pije i je na statku; gdzie kupić można wszystko, co jest potrzebne do użytku i upiększenia okrętu, począwszy od łańcuchów z hakami, poprzez ozdoby steru aż do książek o złotych kartkach, i gdzie kapitan okrętu przyjmowany jest z otwartymi ramionami przez agenta okrętowego, którego przedtem nigdy w życiu nie widział. Tam jest chłodna izba, wygodne fotele, butelki, cygara, materiały piśmiennicze, kopie przepisów portowych i ciepło powitania topiące całą sól zebraną w sercu marynarza po trzymiesięcznej wędrówce po morzu. Zawarta w ten sposób znajomość trwa tak długo, dopóki okręt pozostaje w porcie, gdyż agent pamięta o złożeniu codziennej wizyty. Dla kapitana jest wierny jak przyjaciel, uważny jak syn, odznacza się cierpliwością Hioba, oddaniem kobiety i wesołością dobrego kompana. Później za to wszystko posyła się rachunek. Jest to piękne, humanitarne zajęcie. Dlatego też dobrych agentów nie liczy się na tuziny. Gdy taki jegomość nie tylko posiada zdolność abstrakcyjnego myślenia, ale jest jeszcze oswojony z morzem, to dla swego pracodawcy przedstawia niemałą wartość i zasługuje na to, by mu dogadzano. Jim otrzymywał zawsze doskonałą pensję i dogadzano mu tak, że można by w ten sposób kupić wierność samego czarta. Pomimo to z czarną niewdzięcznością rzucał on nagle służbę i zmykał. Przyczyny, jakie podawał, wydawały się pracodawcom dziwaczne. „Przeklęty głupiec” mówili za jego plecami, krytykując w ten sposób jego nadzwyczajną drażliwość.";
-                      return p;
+            
+            p.hardWords = [new HardWord('Confounded ', 'Przeklęty'), new HardWord('clerk ', 'agent')];
+            
+            return p;
         }
         if(number === 2)
         {
@@ -114,5 +118,9 @@ export class BookService{
         return p;
         }
         return new Page(0);
+    }
+    getHardWords()
+    {
+        return [new HardWord('Confounded ', 'Przeklęty'), new HardWord('clerk ', 'agent')];
     }
 }

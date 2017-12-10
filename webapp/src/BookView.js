@@ -9,6 +9,7 @@ import FontIcon from 'material-ui/FontIcon';
 import Subheader from 'material-ui/Subheader';
 import Paper from 'material-ui/Paper';
 import Slider from 'material-ui/Slider';
+import Chip from 'material-ui/Chip';
 
 import styles from './file.css';
 
@@ -26,18 +27,23 @@ const styleLeft = {
     padding : '20px',
     margin : '5px',
     height: '100%'
+   
 };
 const styleRow = 
 {
-    content: "",
     display: 'table',
     clear: 'both',
-    textalign: "center",
-    "overflow-y": "scroll"
+    
+    "overflowY": "scroll"
 };
 const bottomPanel =
 {
- "text-align" : "right"
+ "textAlign" : "right"
+}
+
+const hardWordStyle =
+{
+    "fontWeight": "500"
 }
 
 @observer
@@ -45,6 +51,22 @@ export class BookView extends React.Component{
     handleSecondSlider = (event, value) => {
         this.props.model.pageNumber = value + 1;
       };
+      createWord = (text, hardWords) =>
+      {
+        var hardWord = this.props.model.getHardWord( text, hardWords);
+          if(hardWord == null )
+          return text;
+          else
+          {              
+              return <span onMouseEnter={this.mouseEnter.bind(this, hardWord.translation)} onMouseLeave={this.mouseLeave} style={hardWordStyle}>{text} </span>;
+          }
+      }
+      mouseEnter = (text) => {
+        this.props.model.hardWordFocused(text);
+          }
+      mouseLeave = () => {
+        this.props.model.isHardWordFocused = false;
+      }
 
     render(){
         const model = this.props.model
@@ -58,20 +80,25 @@ export class BookView extends React.Component{
                         </Paper>
                 </div>
                 <div style={styleLeft}>
+                
                      <Paper style={stylePage} zDepth={2} >
-                        {model.currentPage.orginalText}
+                        {model.currentPage.orginalText.match(/\b(\w+\W+)/g).map( (word, i) => this.createWord(word, model.service.getHardWords()))}
                     </Paper>
                
               </div>
               </div>
-              <div style={bottomPanel}>     
-                <Subheader>{model.pageNumber}</Subheader>         
-                
-                <FlatButton label="Rozdziały" onClick={ () => model.openChapters() }/>
-                <FlatButton label="Poprzednia" icon={<FontIcon className="muidocs-icon-custom-github" />}  onClick={ () => model.previousPage()}/>           
-                <FlatButton label="Nastepna"   onClick={ () =>model.nextPage()}/>                
-                <Slider min={0} max={4} step={1}  onChange={this.handleSecondSlider}/>
-            </div>
+              <div style={bottomPanel}>
+                    <Subheader>{model.pageNumber}</Subheader>         
+                        { model.isHardWordFocused ? <Chip>{model.hardWordTranslation}</Chip> : null }
+
+                        <FlatButton label="Rozdziały" onClick={ () => model.openChapters() }/>
+                        <FlatButton label="Poprzednia" icon={<FontIcon className="muidocs-icon-custom-github" />}  onClick={ () => model.previousPage()}/>           
+                        <FlatButton label="Nastepna"   onClick={ () =>model.nextPage()}/>               
+                 
+                    <Slider min={0} max={4} step={1}  onChange={this.handleSecondSlider}/>
+                </div>
+            
+            
             <Drawer open={model.isChaptersOpened}>
                      {model.chapters.map((chapter, i) => <MenuItem key={chapter.number}   >{chapter.name} </MenuItem>)}                
             </Drawer>
@@ -88,12 +115,7 @@ export class BookView extends React.Component{
                 </div>
                 <Table>
                     <TableHeader displaySelectAll={false}>
-                        <TableRow>
-                            <TableHeaderColumn>Done?</TableHeaderColumn>
-                            <TableHeaderColumn>ID</TableHeaderColumn>
-                            <TableHeaderColumn>Name</TableHeaderColumn>
-                            <TableHeaderColumn>Actions</TableHeaderColumn>
-                        </TableRow>
+                        
                     </TableHeader>
                     <TableBody>
                         {model.todos.map((todo, i) => <SingleTodoView key={todo.id} model={model} todo={todo} />)}

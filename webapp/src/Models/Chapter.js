@@ -1,5 +1,5 @@
 import {observable, action} from 'mobx'
-import {Page} from '../Page'
+import {Page} from './Page'
 import {BookService} from '../BookService'
 
 export class Chapter{

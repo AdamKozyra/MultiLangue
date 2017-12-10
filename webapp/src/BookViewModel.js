@@ -12,7 +12,8 @@ export class BookViewModel{
     @observable pageNumber
     @observable book;
     @observable totalPages = 1;
-
+    @observable isHardWordFocused = false;
+    @observable hardWordTranslation = "";
     @observable isChaptersOpened = false;
 
     id = 1;   
@@ -33,7 +34,13 @@ export class BookViewModel{
             this.pageNumber = this.pageNumber + 1;
             this.currentPage = this.currentChapter.getPageByNumber(this.pageNumber);
         }
-    }    
+    }
+    @action
+    hardWordFocused(translation)
+    {
+        this.isHardWordFocused = true;
+        this.hardWordTranslation = translation;
+    }
     
     @action
     previousPage(){
@@ -51,6 +58,11 @@ export class BookViewModel{
         this.pageNumber = 1;
         this.chapters = this.book.chapters;
         this.currentChapter = this.chapters[0];
-        this.currentPage = this.currentChapter.getPageByNumber(1);        
-    }    
+        this.currentPage = this.currentChapter.getPageByNumber(1);
+        this.isHardWordFocused = false;        
+    }
+    getHardWord(text, hardWords)
+    {
+        return hardWords.find(x => x.text === text);
+    }
 }
